@@ -22,8 +22,30 @@ const getMovieByDirector = () => {
 
 }
 
+const createMovie = (request, response) => {
+  const {
+    title, directors, releaseDate, rating, runTime, genres
+  } = request.body
+
+  if (!title || !directors || !releaseDate || !rating || !runTime || !genres) {
+    return response.status(400).send('The following data fields are required: title, directors, releaseDate, rating, runTime, genres')
+  }
+
+  const newMovie = {
+    tile,
+    directors,
+    releaseDate,
+    rating,
+    runTime,
+    genres
+  }
+
+  return response.status(201).send(newMovie)
+}
+
 module.exports = {
   getAllMovies,
   getMovieByTitle,
-  getMovieByDirector
+  getMovieByDirector,
+  createMovie
 }
