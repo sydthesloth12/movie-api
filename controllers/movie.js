@@ -4,10 +4,11 @@ const getAllMovies = (request, response) => {
   return response.status(200).send(movies)
 }
 
-const getMovieByTitle = (request, response) => {
-  const movie = request.params.title
-  const foundMovie = movies.includes((movie) => {
-    return movie.title === movie
+const getByDirectorTitle = (request, response) => {
+  const { titleOrDirector } = request.params // Stephen
+  const foundMovie = movies.filter((movie) => {
+    return movie.title.toLowerCase().includes(titleOrDirector.toLowerCase()) ||
+    movie.directors.find((director) => director.toLowerCase().includes(titleOrDirector.toLowerCase()))
   })
 
   if (foundMovie) {
@@ -17,10 +18,6 @@ const getMovieByTitle = (request, response) => {
   }
 }
 
-
-const getMovieByDirector = () => {
-
-}
 
 const createMovie = (request, response) => {
   const {
@@ -32,7 +29,7 @@ const createMovie = (request, response) => {
   }
 
   const newMovie = {
-    tile,
+    title,
     directors,
     releaseDate,
     rating,
@@ -45,7 +42,6 @@ const createMovie = (request, response) => {
 
 module.exports = {
   getAllMovies,
-  getMovieByTitle,
-  getMovieByDirector,
-  createMovie
+  getByDirectorTitle,
+  createMovie,
 }
